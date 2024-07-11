@@ -1,4 +1,4 @@
-const ProductList = [
+const ProductsData = [
   {
     productName: "Phone 10",
     price: 561,
@@ -36,4 +36,4 @@ const ProductList = [
   },
 ];
 
-export default ProductList;
+export default ProductsData;
