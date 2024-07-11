@@ -1,17 +1,17 @@
 import React from "react";
+import { useParams } from "react-router-dom";
+import ProductsData from "../Data/ProductsData";
 
-interface Product {
-  id: number;
-  productName: string;
-  price: number;
-  rating: number;
-  discount: number;
-  availability: string;
-}
+const ProductDetail = () => {
+  const { id } = useParams();
+  const product = ProductsData.find((p) => p.id === parseInt(id));
 
-const Product: React.FC<{ product: Product }> = ({ product }) => {
+  if (!product) {
+    return <div>Product not found</div>;
+  }
+
   return (
-    <div className="border rounded-lg p-4 mb-4 shadow-lg">
+    <div className="p-4">
       <h2 className="text-xl font-bold">{product.productName}</h2>
       <p>Price: ${product.price}</p>
       <p>Rating: {product.rating}</p>
@@ -20,9 +20,10 @@ const Product: React.FC<{ product: Product }> = ({ product }) => {
       <button
         className={`mt-2 px-4 py-2 text-white rounded ${
           product.availability === "out-of-stock"
-            ? "bg-gray-400"
+            ? "bg-gray-400 cursor-not-allowed"
             : "bg-blue-500"
         }`}
+        disabled={product.availability === "out-of-stock"}
       >
         {product.availability === "out-of-stock" ? "Out of Stock" : "Buy Now"}
       </button>
@@ -30,4 +31,4 @@ const Product: React.FC<{ product: Product }> = ({ product }) => {
   );
 };
 
-export default Product;
+export default ProductDetail;
