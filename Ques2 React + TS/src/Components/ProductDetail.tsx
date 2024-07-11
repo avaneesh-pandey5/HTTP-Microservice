@@ -1,31 +1,45 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import ProductsData from "../Data/ProductsData";
 
 const ProductDetail = () => {
-  const { id } = useParams();
-  const product = ProductsData.find((p) => p.id === parseInt(id));
+  const [productDetail, setProductDetail] = useState([]);
+  const { category, productId } = useParams();
 
-  if (!product) {
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const response = await fetch(
+        `http://localhost:3000/categories/${category}/products/${productId}`
+      );
+      const data = await response.json();
+      setProductDetail(data);
+    };
+
+    fetchProducts();
+  }, []);
+  console.log(productDetail);
+
+  if (!productDetail) {
     return <div>Product not found</div>;
   }
 
   return (
     <div className="p-4">
-      <h2 className="text-xl font-bold">{product.productName}</h2>
-      <p>Price: ${product.price}</p>
-      <p>Rating: {product.rating}</p>
-      <p>Discount: {product.discount}%</p>
-      <p>Availability: {product.availability}</p>
+      <h2 className="text-xl font-bold">{productDetail.productDetailName}</h2>
+      <p>Price: ${productDetail.price}</p>
+      <p>Rating: {productDetail.rating}</p>
+      <p>Discount: {productDetail.discount}%</p>
+      <p>Availability: {productDetail.availability}</p>
       <button
         className={`mt-2 px-4 py-2 text-white rounded ${
-          product.availability === "out-of-stock"
+          productDetail.availability === "out-of-stock"
             ? "bg-gray-400 cursor-not-allowed"
             : "bg-blue-500"
         }`}
-        disabled={product.availability === "out-of-stock"}
+        disabled={productDetail.availability === "out-of-stock"}
       >
-        {product.availability === "out-of-stock" ? "Out of Stock" : "Buy Now"}
+        {productDetail.availability === "out-of-stock"
+          ? "Out of Stock"
+          : "Buy Now"}
       </button>
     </div>
   );

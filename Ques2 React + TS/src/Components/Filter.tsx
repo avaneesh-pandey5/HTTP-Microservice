@@ -100,6 +100,15 @@ const Filter = ({ filters, setFilters, applyFilters }) => {
           onChange={handleChange}
           className="p-2 border rounded"
         />
+
+        <input
+          type="number"
+          name="productLimit"
+          placeholder="Number of Products"
+          value={filters.productLimit}
+          onChange={handleChange}
+          className="p-2 border rounded"
+        />
       </div>
       <button
         onClick={applyFilters}
