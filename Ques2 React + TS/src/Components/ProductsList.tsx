@@ -56,7 +56,8 @@ const ProductList = () => {
   };
 
   const handleProductClick = (category, id) => {
-    navigate(`category/${category}/product/${id}`);
+    console.log(encodeURI(id));
+    navigate(`category/${category}/product/${encodeURI(id)}`);
   };
 
   return (

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 const ProductDetail = () => {
   const [productDetail, setProductDetail] = useState([]);
   const { category, productId } = useParams();
+  console.log(category, productId);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -24,7 +25,7 @@ const ProductDetail = () => {
 
   return (
     <div className="p-4">
-      <h2 className="text-xl font-bold">{productDetail.productDetailName}</h2>
+      <h2 className="text-xl font-bold">{productDetail.productName}</h2>
       <p>Price: ${productDetail.price}</p>
       <p>Rating: {productDetail.rating}</p>
       <p>Discount: {productDetail.discount}%</p>
